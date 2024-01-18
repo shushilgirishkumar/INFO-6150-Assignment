@@ -1,0 +1,125 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header, footer {
+  
+    margin: 0 auto;
+    background-color: #3f51b5;
+}
+a {
+    text-decoration: none;
+    color: antiquewhite;
+}
+a:hover {
+    text-decoration: underline;
+    text-underline-offset: 9px;
+    text-decoration-color: burlywood;
+    text-decoration-thickness: 3px;
+}
+header {
+    
+    color: #ecf0f1;
+    padding: 20px;
+    padding-left: 134px;
+}
+#section1{
+    display: flex
+    
+}
+
+nav ul {
+    list-style: none;
+    padding-left: 1px;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+main {
+    padding: 20px 0;
+    margin: 0 8.5em;
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.section1-content-title{
+    color: #3f51b5;
+    margin: 10px 0;
+}
+.section1-content-para{
+    padding-top: 20px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+.contentbold{
+    font-weight: bolder;
+}
+
+button.section1-btn,.register-btn{
+    background-color: #3f51b5;
+    color: #fff;
+    padding: 10px 20px;
+    border: solid 2px rgba(0,0,0,0);
+    border-radius: 200px;
+    cursor: pointer;
+}
+button.section1-btn:hover{
+    box-shadow: 0 0 0 0.125rem grey;
+}
+.section1-content {
+    margin-right: 100px;
+}
+
+footer {
+   
+    color: #ecf0f1;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100vw;
+    bottom: -173px;
+    
+}
+
+form.form {
+    margin: 0 38em;
+    margin-top: 31px;
+}
+.form input{
+    padding: 8px;
+    float: right;
+    margin-top: -21px;
+}
+.form label{
+    margin: -1em;
+    font-size: larger;
+}
+.about-title{
+    color:#3f51b5
+}
+iframe{
+    width: 900px;
+    height: 600px;
+}
+button.register-btn {
+    margin-top: 25px;
+    margin-left: 78px;
+}
