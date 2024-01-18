@@ -31,6 +31,9 @@ Listed below are the tags used and their description
 <img> - used to embed image
 <audio> - used to embed audio
 <table> - used to create table
+<details> - It specifies additional details that the user can open and close on demand.
+<menu> - It defines an unordered list of content.
+<summary> -It defines a visible heading for the <details> element
 <tr> - table row tag
 <th> - table heading tag
 <td> - table description tag
