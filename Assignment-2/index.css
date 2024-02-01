@@ -13,6 +13,10 @@ body{
 div{
     color: #0d1b2a;
 }
+iframe{
+    height: 315px;
+    width: 600px;
+}
 header{
     position: relative;
     min-height: 550px;
@@ -355,6 +359,10 @@ form input[type="submit"]:hover {
 @media screen and (min-width:350px) and (max-width:365px) {
     .about-container,#Projects .project-container{
         column-count: auto;
+    }
+    iframe{
+        height: 115px;
+        width: 300px;
     }
     header h1{
         font-size: 38px;
