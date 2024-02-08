@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <title>Feedback</title>
+  <style>
+    
+	label {	float: left;
+			width: 150px;}
+      #container{
+          width: 700px;
+          margin: auto;
+          background-color: beige;
+      } 
+      main{
+          padding: 50px;
+      }
+	  .hidden{
+		display: none;
+	  }
+	  #myTable input {
+	margin-left: 5px;
+}
+
+#myTable {
+	border:2px solid green;
+	border-collapse: collapse;
+	margin: 30px 30px 20px 300px;
+	
+}
+#myTable td, th {
+	border:1px solid green;
+	padding: 5px;
+}
+#myTable th {
+	color: #fff;
+	background-color: #a7c942;
+}
+  </style>
+ </head>
+ <body>
+ <div id="container">
+	 
+	 <main>
+	 <h2>Feeback</h2>
+	 <h3>Love something? Hate something? Let us know!</h3>
+		 Note : Fields marked with an asterisk(*) are mandatory
+		 <br><br>
+		 <form id="myForm" method="post" novalidate>
+			<label>Title*:</label>
+			<div id="pronoun">
+				<input type="radio" name="title" id="miss" value="miss" required="required"/>Miss
+				<input type="radio" name="title" id="mr" value="mr" required="required"/>Mr.
+				<input type="radio" name="title" id="mrs" value="mrs" required="required"/>Mrs.
+			</div>
+			<br><br>
+			<label for="firstName">First Name*:</label>
+			<input type="text" name="firstName" id="firstName" placeholder="First Name" />	
+			<br><br>
+			<div id="error_firstName" style=" display: none; color: red">
+                Invalid name, please enter valid First name.
+                <br><br>
+            </div>
+
+			<label for="lastName">Last Name*:</label>
+			<input type="text" name="lastName" id="lastName" placeholder="Last Name" />
+			<br><br>
+			<div id="error_lastName" style=" display: none; color: red">
+                Invalid name, please enter valid Last name.
+                <br><br>
+            </div>
+
+			<label for="emailId">Email Id*:</label>
+			<input type="text" name="emailId" id="emailId" placeholder="..@northeastern.edu" />
+			<br><br>
+			<div id="error_emailId" style=" display: none; color: red">
+                please @northeastern mailid
+                <br><br>
+            </div>
+
+			<label for="phoneNumber">Phone Number*:</label>
+			<input type="text" name="phoneNumber" id="phoneNumber" placeholder="xxx-xxx-xxxx" />
+			<br><br>
+			<div id="error_phoneNumber" style=" display: none; color: red">
+                Invalid phone number.
+                <br><br>
+            </div>
+			<label for="address">Address1*:</label>
+			<input type="text" name="address" id="address" placeholder="Enter your Location" />
+			<br><br>
+			<div id="error_address" style=" display: none; color: red">
+                Please enter Address.
+                <br><br>
+            </div>
+			<label for="address2">Address2:</label>
+			<input type="text" name="Address2" id="Address2" placeholder="Enter Apartment/Suite" />
+			<br><br>
+            <label for="zipcode">ZipCode*:</label>
+			<input type="text" name="zipcode" id="zipcode" placeholder="xxxxxx" />
+			<br><br>
+			<div id="error_zipcode" style=" display: none; color: red">
+                Invalid zipcode.
+                <br><br>
+            </div>
+
+            <label for="Social">How did you hear*:</label>
+		
+			<input type='checkbox' name="source" value="facebook" /> Facebook
+            <input type='checkbox' name="source" value="google" /> Google
+            <input type='checkbox' name="source" value="yelp" /> Yelp 
+			<br><br> 
+			<div id="select-box" >
+				<p id="select-text" style="display: inline-block;">Drinks:</p>
+				<select id="drinks">
+					<option value="select">Select</option>
+					<option value="coffee">Coffee</option>
+					<option value="tea">Tea</option>
+					<option value="water">Water</option>
+					<option value="juice">Juice</option>
+					<option value="soda">Soda</option>
+				  </select>
+			</div>
+			<br><br>
+			<label for="comments">Comments*:</label>
+			<textarea name="text" id="comments" placeholder="Your comments" rows="5" cols="25"></textarea>
+			<br><br>
+			<div id="error_comments" style=" display: none; color: red">
+                Please enter comments.
+                <br><br>
+            </div>
+			<input type="Submit" value="Submit My Form" id="SubmitForm" disabled>
+			<input type="Reset">
+			<br><br>
+		 </form>
+	 </main>
+ </div>
+ <table id="myTable">
+	<thead>
+		<tr>
+		
+			<th>First name</th>
+			<th>Last name</th>
+			<th>Email Id</th>
+			<th>Phone</th>
+			<th>Street address 1</th>
+			<th>Street address 2</th>
+			<th>ZipCode</th>
+			<th>Drinks</th>
+			<th>Add-ons</th>
+			<th>quantity</th>
+			<th>Comments</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+	</table>
+
+ <script>
+	var form = document.getElementById("myForm");
+	form.addEventListener("submit", submitted);
+	
+	var valid_firstName = false;
+	var valid_lastName = false;
+	var validEmail = false;
+	var validPhone = false;
+	var validZipcode = false;
+	var validSelectList = false;
+	var validComments = false;
+	var validAddress = false;
+	var validCheckbox = false;
+	var validTextField = false;
+
+	//regular expressions
+	var regExName = /^[a-zA-Z]{3,10}$/;
+	var regExEmail = /([\w\.]+)@(northeastern)\.(edu)/;
+	var regExPhone = /\d{3}-?\d{3}-\d{4}$/;
+	var regExZip = /^\d{5}$/;
+	
+
+	//values
+	
+	var firstName = document.getElementById("firstName");
+	firstName.addEventListener("input", validate);
+
+	var lastName = document.getElementById("lastName");
+	lastName.addEventListener("input", validate);
+
+	var emailId = document.getElementById("emailId");
+	emailId.addEventListener("input", validate);
+
+	var phoneNumber = document.getElementById("phoneNumber");
+	phoneNumber.addEventListener("input", validate);
+
+	var zipcode = document.getElementById("zipcode");
+	zipcode.addEventListener("input", validate);
+
+	var Comments = document.getElementById("comments");
+	Comments.addEventListener("input", validate);
+
+	var address = document.getElementById("address");
+	address.addEventListener("input", validate);
+
+	//funtion validate
+	function validate(e) {
+		var value = e.target.value;
+		var type = this.id;
+		var em = "error_" + type;
+
+		switch (type) {
+			case "firstName":
+				if (!value.trim().match(regExName)) {
+					document.getElementById(em).style.display = "block";
+					this.style.border = "2px solid red";
+					valid_firstName = false;
+				}
+				else {
+					document.getElementById(em).style.display = "none";
+					this.style.border = "";
+					valid_firstName = true;
+				}
+				break;
+				case "lastName":
+				if (!value.trim().match(regExName)) {
+					document.getElementById(em).style.display = "block";
+					this.style.border = "2px solid red";
+					valid_lastName = false;
+				}
+				else {
+					document.getElementById(em).style.display = "none";
+					this.style.border = "";
+					valid_lastName = true;
+				}
+				break;
+			case "emailId":
+				if (!value.trim().match(regExEmail)) {
+					document.getElementById(em).style.display = "block";
+					this.style.border = "2px solid red";
+					validEmail = false;
+				}
+				else {
+					document.getElementById(em).style.display = "none";
+					this.style.border = "";
+					validEmail = true;
+				}
+				break;
+			case "phoneNumber":
+				if (!value.trim().match(regExPhone)) {
+					document.getElementById(em).style.display = "block";
+					this.style.border = "2px solid red";
+					validPhone = false;
+				}
+				else {
+					document.getElementById(em).style.display = "none";
+					this.style.border = "";
+					validPhone = true;
+				}
+				break;
+				case "zipcode":
+				if (!value.trim().match(regExZip)) {
+					document.getElementById(em).style.display = "block";
+					this.style.border = "2px solid red";
+					validZipcode = false;
+				}
+				else {
+					document.getElementById(em).style.display = "none";
+					this.style.border = "";
+					validZipcode = true;
+				}
+				break;
+			case "comments":
+				if (!(value.length > 1)) {
+					document.getElementById(em).style.display = "block";
+					this.style.border = "2px solid red";
+					validComments = false;
+				}
+				else {
+					document.getElementById(em).style.display = "none";
+					this.style.border = "";
+					validComments = true;
+					}
+				break;
+				case "address":
+				if (!(value.length > 4)) {
+					document.getElementById(em).style.display = "block";
+					this.style.border = "2px solid red";
+					validAddress = false;
+				}
+				else {
+					document.getElementById(em).style.display = "none";
+					this.style.border = "";
+					validAddress = true;
+				}
+					}
+		if (valid_firstName && valid_lastName && validEmail && validPhone && validZipcode && validSelectList && validComments && validAddress && validCheckbox && validTextField) {
+			
+			document.getElementById("SubmitForm").disabled = false;
+		}
+	}
+
+var select = document.getElementById('drinks');
+
+
+var selectBox = document.getElementById('select-box');
+
+var checkboxContainer = document.createElement('div');
+checkboxContainer.id = 'checkboxContainer';
+selectBox.appendChild(checkboxContainer);
+
+select.addEventListener('change', function() {
+   
+	validSelectList = true;
+    while (checkboxContainer.firstChild) {
+        checkboxContainer.firstChild.remove();
+    }
+
+   
+    if (this.value === 'select') {
+		validSelectList = false;
+		return;
+	}
+
+    
+    var checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = 'drinkCheckbox';
+
+
+    var label = document.createElement('label');
+	if(this.value === 'coffee'){
+		label.appendChild(document.createTextNode('Latte(75$ extra)'));	
+		checkbox.value = 'Latte';
+		
+	}
+	else if(this.value === 'tea'){
+		label.appendChild(document.createTextNode('Green Tea(50$ extra)'));
+		checkbox.value = 'GreenTea';
+		
+	}
+	else if(this.value === 'water'){
+		label.appendChild(document.createTextNode('HotWater(25$ extra)'));
+		checkbox.value = 'Latte';
+		
+	}
+	else if(this.value === 'juice'){
+		label.appendChild(document.createTextNode('Juice(100$ extra)'));
+		checkbox.value = 'Juice';
+		
+	}
+	else if(this.value === 'soda'){
+		label.appendChild(document.createTextNode('Soda(125$ extra)'));
+		checkbox.value = 'Soda';
+
+	}
+	checkbox.addEventListener('change', function() {
+    ToggleText(this);
+	});
+    
+    checkboxContainer.appendChild(checkbox);
+    checkboxContainer.appendChild(label);
+    checkboxContainer.appendChild(document.createElement('br'));
+});
+
+function ToggleText(checkbox) {
+    
+
+    var parent = checkbox.parentNode;
+
+    
+    if (checkbox.checked) {
+		validCheckbox = true;
+       
+        var textField = document.createElement('input');
+        textField.type = 'text';
+        textField.id = 'checkboxTextField';
+		textField.placeholder = "Enter quantity";
+		textField.required = true;
+		textField.addEventListener('input', function() {
+			if (this.value.length > 0) {
+				validTextField = true;
+			}
+			else {
+				validTextField = false;
+			}
+		});
+        
+        parent.appendChild(textField);
+    } else {
+		validCheckbox = false;
+        
+        var textField = document.getElementById(checkbox.value + 'TextField');
+        if (textField) {
+            parent.removeChild(textField);
+        }
+    }
+}
+
+	function submitted(e) {
+	e.preventDefault();
+	var checkbox = document.getElementById('drinkCheckbox');
+	var tf = document.getElementById('checkboxTextField');
+	var table = document.getElementById("myTable");
+	var tbody = document.querySelector("#myTable tbody");
+	  var td1= document.createElement("td");
+	  td1.innerHTML = firstName.value;
+	  var td2= document.createElement("td");
+	  td2.innerHTML = lastName.value;
+	  var td3= document.createElement("td");
+	  td3.innerHTML = emailId.value;
+	  var td4= document.createElement("td");
+	  td4.innerHTML = phoneNumber.value;
+	  var td5= document.createElement("td");
+	  td5.innerHTML = address.value;
+	  var td6= document.createElement("td");
+	  td6.innerHTML = Address2.value;
+	  var td7= document.createElement("td");
+	  td7.innerHTML = zipcode.value;
+	  var td8= document.createElement("td");
+	  td8.innerHTML = select.value;
+	  var td9= document.createElement("td");
+	  td9.innerHTML = checkbox.value;
+	var td10= document.createElement("td");
+	  td10.innerHTML = tf.value;
+	  var td11= document.createElement("td");
+	  td11.innerHTML = comments.value;
+	  var tr= document.createElement("tr");
+	  tr.appendChild(td1);
+	  tr.appendChild(td2);
+	  tr.appendChild(td3);
+	  tr.appendChild(td4);
+	  tr.appendChild(td5);
+	  tr.appendChild(td6);
+	  tr.appendChild(td7);
+	  tr.appendChild(td8);
+	  tr.appendChild(td9);
+	  tr.appendChild(td10);
+	  tr.appendChild(td11);
+	  tbody.appendChild(tr);
+		alert("Data entered successfully.");
+	  document.getElementById("myForm").reset();
+	  document.getElementById("SubmitForm").disabled = true;
+	}
+	
+
+
+</script>
+
+ </body>
+</html>
