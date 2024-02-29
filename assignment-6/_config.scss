@@ -1,0 +1,19 @@
+$background-color_1: #b53f7f;
+$background-color_2:  #f4f4f4;
+$color_1: antiquewhite;
+$color_1: antiquewhite;
+$color_2: #b53f7f;
+$color_3: #ecf0f1;
+$color_4: #fff;
+$color_5:#b53f7f9e;
+
+$workoutpoints:(1,2,3,4,5,6,7);
+
+@each $work in $workoutpoints{
+    .w-#{$work} {
+        width: #{$work}*2 rem 0;
+        background-color: $color_5;
+        color: white;
+       list-style-type: none;
+    }
+}

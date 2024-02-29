@@ -1,0 +1,167 @@
+@import '_buttons.scss';
+@import '_config.scss';
+@import '_header.scss';
+@import '_footer.scss';
+
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color:$background-color_2;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+
+nav {
+	a {
+		text-decoration: none;
+		color: $color_1;
+	}
+}
+footer {
+	a {
+		text-decoration: none;
+		color: $color_1;
+	}
+}
+
+
+
+nav {
+	a {
+		text-decoration: none;
+		color: $color_1;
+		&:hover {
+			text-decoration: underline;
+			text-underline-offset: 9px;
+			text-decoration-color: burlywood;
+			text-decoration-thickness: 3px;
+		}
+	}
+	ul {
+		list-style: none;
+		padding-left: 1px;
+		li {
+			display: inline;
+			margin-right: 20px;
+		}
+	}
+}
+footer {
+	a {
+		text-decoration: none;
+		color: $color_1;
+		&:hover {
+			text-decoration: underline;
+			text-underline-offset: 9px;
+			text-decoration-color: burlywood;
+			text-decoration-thickness: 3px;
+		}
+	}
+	color: $color_3;
+	text-align: center;
+	padding: 10px 0;
+	position: relative;
+	bottom: 0;
+	width: 100vw;
+	bottom: -173px;
+}
+menu {
+	a {
+		text-decoration: none;
+	}
+	text-align: end;
+	padding-right: 23px;
+	ul {
+		li {
+			list-style-type: none;
+			color: $color_2;
+			margin-top: 7px;
+			font-weight: bold;
+		}
+	}
+}
+details {
+	summary {
+		color: $color_2;
+	}
+	line-height: 1.5;
+	text-align: center;
+	margin-top: 37px;
+	p {
+		margin-bottom: 0;
+	}
+}
+
+#section1 {
+	display: flex;
+}
+main {
+	padding: 20px 0;
+	margin: 0 8.5em;
+	padding-bottom: 0;
+}
+section {
+	margin-bottom: 40px;
+}
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+.section1-content-title {
+	color: $color_2;
+	margin: 10px 0;
+}
+.section1-content-para {
+	padding-top: 20px;
+}
+th {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+}
+td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+}
+.contentbold {
+	font-weight: bolder;
+}
+
+
+.register-btn {
+	background-color: $background-color_1;
+	color: $color_4;
+	padding: 10px 20px;
+	border: solid 2px rgba(0,0,0,0);
+	border-radius: 200px;
+	cursor: pointer;
+}
+.section1-content {
+	margin-right: 100px;
+}
+form.form {
+	margin: 0 38em;
+	margin-top: 31px;
+}
+.form {
+	input {
+		padding: 8px;
+		float: right;
+		margin-top: -21px;
+	}
+	label {
+		margin: -1em;
+		font-size: larger;
+	}
+}
+.about-title {
+	color: $color_2;
+}
+iframe {
+	width: 900px;
+	height: 600px;
+}

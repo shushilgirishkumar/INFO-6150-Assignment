@@ -1,0 +1,23 @@
+
+
+$color_1: #fff;
+$background-color_1: #b53f7f;
+%btn-color{
+    background-color: $background-color_1;
+    color: $color_1;
+	padding: 10px 20px;
+	border: solid 2px rgba(0,0,0,0);
+	border-radius: 200px;
+	cursor: pointer;
+}
+button.section1-btn {
+	@extend %btn-color;
+	&:hover {
+		box-shadow: 0 0 0 0.125rem grey;
+	}
+}
+.register-btn {
+    @extend %btn-color;
+
+	
+}
