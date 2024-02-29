@@ -1,0 +1,13 @@
+.about-container{
+    @include aboutflexbox-container(row, center, start);
+.about-transcipt{
+    ol{
+        margin-top: 0;
+        width: 50%;
+    li{
+        line-height: 1.2;
+    }
+    }
+  
+}
+}

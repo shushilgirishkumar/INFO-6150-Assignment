@@ -1,0 +1,27 @@
+nav {
+	a {
+		text-decoration: none;
+		color: $color_1;
+	}
+}
+
+nav {
+	a {
+		text-decoration: none;
+		color: $color_1;
+		&:hover {
+			text-decoration: underline;
+			text-underline-offset: 9px;
+			text-decoration-color: burlywood;
+			text-decoration-thickness: 3px;
+		}
+	}
+	ul {
+		list-style: none;
+		padding-left: 1px;
+		li {
+			display: inline;
+			margin-right: 20px;
+		}
+	}
+}

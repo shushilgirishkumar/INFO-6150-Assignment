@@ -1,19 +1,49 @@
-$background-color_1: #b53f7f;
+$background-color_1: #02111B;
 $background-color_2:  #f4f4f4;
 $color_1: antiquewhite;
 $color_1: antiquewhite;
-$color_2: #b53f7f;
+$color_2: #02111B;
 $color_3: #ecf0f1;
 $color_4: #fff;
-$color_5:#b53f7f9e;
+$color_5:#5D737E;
+$color_6: #222;
 
-$workoutpoints:(1,2,3,4,5,6,7);
+@if $background-color_2 == #f4f4f4{
+    $color_6:#333;
+    
+}
+@else{
+    $color_6:white;
+
+}
+
+$workoutpoints:(1,2,3,4,5,6,7,8);
+
+@mixin flexbox-container($direction, $justify, $align) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+  }
+  @mixin aboutflexbox-container($direction, $justify, $align) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+  }
+  
+  
 
 @each $work in $workoutpoints{
     .w-#{$work} {
-        width: #{$work}*2 rem 0;
+        width: calc(#{$work} * 50px);
+        margin: 20px 0;
         background-color: $color_5;
         color: white;
        list-style-type: none;
     }
 }
+
+
+
+

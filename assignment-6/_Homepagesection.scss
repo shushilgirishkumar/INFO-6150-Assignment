@@ -1,0 +1,73 @@
+
+#section1 {
+	
+		@include flexbox-container(row, center, center);
+	  
+}
+%imageb4transformation{
+	opacity: 1;
+	-webkit-transform: scale(1);
+	 transform: scale(1);
+		-webkit-transition: .3s ease-in-out;
+	 transition: .3s ease-in-out;
+}
+%imageaftertransformation{
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
+	box-shadow: 12px 4px 32px -4px rgba(0,26,51,.32);
+}
+$entity:"section";
+
+.#{$entity} {
+	margin-bottom: 40px;
+}
+.#{$entity}1{
+	&-content-title{
+		color: $color_2;
+	margin: 10px 0;
+	}
+	&-content-para{
+		padding-top: 20px;
+	}
+	&-content{
+		margin-right: 100px;
+	}
+}
+.#{$entity}1-picture{
+	img{
+		width: 30rem;
+		@extend %imageb4transformation;
+	}
+	img:hover{
+		@extend %imageaftertransformation;
+	}
+}
+.#{$entity}2-grid-container{
+	box-sizing: border-box;
+	max-width: 100%;
+  margin: 0; // Centers the grid if there's extra space
+  padding: 0; // Adjust padding as necessary
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Adjust as necessary */
+  gap: 20px;
+	@media (max-width: 600px) {
+		grid-template-columns: repeat(2, 1fr); // 2 columns for smaller screens
+	  }
+	
+	  @media (max-width: 480px) {
+		grid-template-columns: 1fr; // 1 column for very small screens
+	  }
+	.grid-item{
+		min-width: 0;
+		&:nth-child(3){
+			img{
+				width: 20rem;
+				@extend %imageb4transformation;
+			}
+			img:hover{
+				@extend %imageaftertransformation;
+			}
+			
+		}
+	}
+}
