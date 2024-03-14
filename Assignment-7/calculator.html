@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome Page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="calculator.js"></script>
+</head>
+<body>
+<div class="calculator-container">
+    <h2 id="user-name-display"></h2>
+    <div>
+      <label for="number1">Number 1:</label>
+      <input type="text" id="number1">
+      <div class="error"></div>
+    </div>
+    <div>
+      <label for="number2">Number 2:</label>
+      <input type="text" id="number2">
+      <div class="error"></div>
+    </div>
+    <button data-operation="add">Add</button>
+    <button data-operation="subtract">Subtract</button>
+    <button data-operation="multiply">Multiply</button>
+    <button data-operation="divide">Divide</button>
+    <button data-operation="reset">Reset</button>
+    <div>
+      <label for="result">Result:</label>
+      <input type="text" id="result" readonly>
+      <div id="operation-error" class="error"></div>
+    </div>
+</div>
+
+</body>
+</html>
