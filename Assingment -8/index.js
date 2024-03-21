@@ -3,6 +3,11 @@ const { MongoClient } = require('mongodb');
 const bcrypt = require('bcrypt');
 const multer = require('multer');
 const validator = require('validator');
+const fs = require('fs');
+const dir = './uploads';
+if (!fs.existsSync(dir)){
+  fs.mkdirSync(dir, { recursive: true });
+}
 // const User = require('./models/user'); // The path should be relative to the current file where you're using it
 
 const app = express();
@@ -31,8 +36,44 @@ app.post('/user/create', async (req, res) => {
     if (!fullName || fullName.length < 3) {
       return res.status(400).send({ message: 'Full name must be at least 3 characters long' });
     }
+
+    // Check if fullName contains any special characters or numbers
+    const regex = /^[a-zA-Z ]+$/;
+    if (!regex.test(fullName)) {
+      return res.status(400).send({ message: 'Full name should not contain numbers or special characters' });
+    }
     if (!password || password.length < 8) {
       return res.status(400).send({ message: 'Password must be at least 8 characters long' });
+    }
+
+    // Check for consecutive numbers
+    const consecutiveNumbersRegex = /(012|123|234|345|456|567|678|789|890)/;
+    if (consecutiveNumbersRegex.test(password)) {
+      return res.status(400).send({ message: 'Password should not contain consecutive numbers' });
+    }
+
+    // Check for repeating numbers
+    const repeatingNumbersRegex = /(\d)\1+/;
+    if (repeatingNumbersRegex.test(password)) {
+      return res.status(400).send({ message: 'Password should not contain repeating numbers' });
+    }
+
+    // Check for spaces
+    const spaceRegex = /\s/;
+    if (spaceRegex.test(password)) {
+      return res.status(400).send({ message: 'Password should not contain spaces' });
+    }
+
+    // Check for at least one special character
+    const specialCharacterRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    if (!specialCharacterRegex.test(password)) {
+      return res.status(400).send({ message: 'Password should contain at least one special character' });
+    }
+
+    // Check for at least one uppercase character
+    const uppercaseCharacterRegex = /[A-Z]/;
+    if (!uppercaseCharacterRegex.test(password)) {
+      return res.status(400).send({ message: 'Password should contain at least one uppercase character' });
     }
 
     const existingUser = await usersCollection.findOne({ email });
@@ -133,47 +174,67 @@ app.post('/user/create', async (req, res) => {
   });
 // upload images 
 
-  const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'uploads/') // make sure this uploads directory exists
-    },
-    filename: function (req, file, cb) {
-      // You could rename the file to include the userId or some other unique identifier
-      cb(null, Date.now() + '-' + file.originalname)
-    }
-  });
-  
-  const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/gif') {
-      cb(null, true);
-    } else {
-      cb(new Error('Unsupported file type'), false);
-    }
-  };
-  
-  const upload = multer({ storage: storage, fileFilter: fileFilter });
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/') // make sure this uploads directory exists
+  },
+  filename: function (req, file, cb) {
+    // You could rename the file to include the userId or some other unique identifier
+    cb(null, Date.now() + '-' + file.originalname)
+  }
+});
 
-  app.post('/user/uploadImage', upload.single('image'), async (req, res) => {
-    try {
-      if (!req.file) {
-        return res.status(400).json({ message: 'No image file provided' });
-      }
-  
-      // At this point, the file is saved to the server
-      // You can now save the file path in the user's document or return it in the response
-      const imagePath = req.file.path;
-  
-      // If needed, find the user by id and set the imagePath
-  
-      res.status(200).json({
-        message: 'Image uploaded successfully',
-        imagePath: imagePath // you might want to return a URL instead
-      });
-    } catch (error) {
-      console.error('Error uploading image:', error);
-      res.status(500).json({ message: 'Failed to upload image', error: error.message });
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/gif') {
+    cb(null, true);
+  } else {
+    cb(new Error('Unsupported file type'), false);
+  }
+};
+
+const upload = multer({ storage: storage, fileFilter: fileFilter });
+
+// Create a separate collection for images
+const imagesCollection = db.collection('images');
+
+app.post('/user/uploadImage', upload.single('image'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'No image file provided' });
     }
-  });
+
+    // At this point, the file is saved to the server
+    // You can now save the file path in the user's document or return it in the response
+    const imagePath = req.file.path;
+
+    // Get the user's email from the request body
+    const { email } = req.body;
+
+    // Find the user by email
+    const user = await usersCollection.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Save the image in the images collection with a reference to the user
+    const imageDocument = {
+      imagePath,
+      userEmail: email,
+      uploadDate: new Date()
+    };
+
+    await imagesCollection.insertOne(imageDocument);
+
+    res.status(200).json({
+      message: 'Image uploaded successfully',
+      imagePath: imagePath // you might want to return a URL instead
+    });
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    res.status(500).json({ message: 'Failed to upload image', error: error.message });
+  }
+});
   
   
       
